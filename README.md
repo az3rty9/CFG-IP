@@ -17,10 +17,10 @@ pip install geoip2 argparse
 # Usage
 - Clone this repository:
 ```
-git clone https://github.com/yourusername/ip-scanner.git
+git clone https://github.com/az3rty9/CFG-IP.git
 ```
 ```
-cd ip-scanner
+cd CFG-IP
 ```
 ### Run the script:
 The script supports multiple argument combinations:
@@ -28,37 +28,37 @@ The script supports multiple argument combinations:
 - To scan a single IP address, use the following command:
 
 ```
-python scanner.py -ip <ip_address>
+python cfg.py -ip <ip_address>
 ```
 
 - To download a ZIP file and scan all files within it:
   
 ```
-python scanner.py -zip -dw
+python cfg.py -zip -dw
 ```
 
 - To scan a ZIP file in the same directory with the name `txt.zip`:
  
 ```
-python scanner.py -zip
+python cfg.py -zip
 ```
   
 - To scan a ZIP file in the same directory with a given name (e.g., filename.zip):
 
 ```
-python scanner.py -zip -fn filename.zip
+python cfg.py -zip -fn filename.zip
 ```
 
 - To scan all text files in the same directory:
   
 ```
-python scanner.py -f
+python cfg.py -f
 ```
 
 - To scan a text file in the same directory with a given name (e.g., filename.txt):
 
 ```
-python scanner.py -f -fn filename.txt
+python cfg.py -f -fn filename.txt
 ```
 
 # Output

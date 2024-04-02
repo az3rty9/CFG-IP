@@ -51,7 +51,7 @@ python cfg.py -zip
 python cfg.py -zip -fn filename.zip
 ```
 
-- To scan all text files in the same directory:
+- To scan all text files in the 'txt' directory:
   
 ```
 python cfg.py -f

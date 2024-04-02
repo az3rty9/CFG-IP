@@ -294,7 +294,7 @@ def from_zip_file(file_path):
     with zipfile.ZipFile(file_path, "r") as zip_file:
         for file_name in zip_file.namelist():
             if file_name.endswith(".txt"):
-                print(file_name)
+                print("\n[+]Processing: ", file_name)
                 with zip_file.open(file_name, "r") as file:
                     content = file.read().decode("utf-8").split('\n')  # Assuming UTF-8 encoding
                     port = extract_port(file_name)

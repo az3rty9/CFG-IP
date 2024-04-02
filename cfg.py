@@ -277,12 +277,14 @@ def fromFile(file_path, port):
         
 
 def allFile():
-    files = os.listdir(script_dir)
+    txt_script_dir = f"{script_dir}\\txt"
+    files = os.listdir(txt_script_dir)
+    print (files)
     text_files = [file for file in files if file.endswith('.txt')]
     for file_name in text_files:
         port = extract_port(file_name)
         if port:
-            file_path = os.path.join(script_dir, file_name)         
+            file_path = os.path.join(txt_script_dir, file_name)         
             fromFile(file_path, port)   
         else:
             print("No match found for filename:", file_name)
@@ -345,6 +347,7 @@ def main():
                 fromFile(file_path, port)
         else : 
             allFile()
+
     elif args.ip:
         print("\n[+]Processing: ",args.ip)
         splited = args.ip.split(':')

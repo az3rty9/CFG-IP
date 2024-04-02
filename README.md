@@ -78,6 +78,11 @@ The script will create a folder structure organized by the date and time of the 
         └── ...
 ```
 
+# Screenshot
+
+![Local Image](images/screenshot.png)
+
+
 # License
 This project is licensed under the MIT License - see the LICENSE file for details
 

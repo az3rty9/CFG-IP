@@ -197,9 +197,9 @@ def geoip_country(ip_address, port):
                             to_print                       
                             ]))
             
-                
+            success+=1   
             if verbose : print (f"[{Colors.GREEN}{success}{Colors.WHITE}]", to_print)
-            success+=1
+            
             save_to_file(to_print, country_name)
 
                

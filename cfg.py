@@ -174,7 +174,6 @@ def geoip_country(ip_address, port):
         if is_ip_address(ip_address):
             to_print = None
             if not no_test :
-                print('test')
                 latency = test_ipaddress (ip_address, port)
                 if latency:
                     to_print = f"latency: {latency}"

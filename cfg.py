@@ -30,7 +30,8 @@ fail = 0
 zip_url = "zip.baipiao.eu.org"
 request_url = "speed.cloudflare.com"
 request_url_path = "/cdn-cgi/trace"
-timeout = 4  
+timeout = 4 
+no_test = False 
 headers = {"user-agent": "Mozilla/5.0"}
 enable_tls = True
 verbose = False
@@ -73,9 +74,11 @@ def banner():
     max_banner_lenght =  max(len(banner) for banner in banner.split('\n'))
     print(Colors.WHITE + "".ljust(max_banner_lenght, '─'))
     space = "   "#.ljust(int(max_banner_lenght / 4 ), ' ') 
-    print (space + "•Author  : " , "!AZERTY9!" )
+    print (space + "•Author  : " , "! AZERTY9 !" )
     print (space + "•Github  : " , "https://github.com/az3rty9" )
+    print (space + "Telegram : " , "https://t.me/N3wB0rn9" ) 
     print (space + "•Version : " , "1.0" )
+    
     print("".ljust(max_banner_lenght, '─'))
 
 
@@ -169,31 +172,42 @@ def geoip_country(ip_address, port):
     reader = geoip2.database.Reader(database_file)
     try:
         if is_ip_address(ip_address):
+            to_print = None
+            if not no_test :
+                print('test')
+                latency = test_ipaddress (ip_address, port)
+                if latency:
+                    to_print = f"latency: {latency}"
+                else:
+                    fail+=1
+                    return
 
-            latency = test_ipaddress (ip_address, port)
-            if latency:
-                response = reader.country(ip_address)
-                country_name = response.country.name
-                country_names.append(country_name)
-                
-                country_continent = response.continent.name   
-                country_continent_names.append(country_continent)
-                asn_number, asn_name = geoip_asn_info(ip_address)
+            response = reader.country(ip_address)
+            country_name = response.country.name
+            country_names.append(country_name)
+            
+            country_continent = response.continent.name   
+            country_continent_names.append(country_continent)
+            asn_number, asn_name = geoip_asn_info(ip_address)
 
-                to_print = ' , '.join(map(str, [
+            to_print = ' , '.join(map(str, [
                             f"IPaddress: {ip_address}:{port}",
                             f"Country: {country_name}/{country_continent}",
                             f"ASN Number: {asn_number}",
                             f"ASN Name: {asn_name}",
-                            f"latency: {latency}"                           
+                            to_print                       
                             ]))
-                success+=1
+            
+                
+            if verbose : print (f"[{Colors.GREEN}{success}{Colors.WHITE}]", to_print)
+            success+=1
+            save_to_file(to_print, country_name)
+
                
-                if verbose : print (f"[{Colors.GREEN}{success}{Colors.WHITE}]", to_print)    
-                save_to_file(to_print, country_name)
+                    
                # {Colors.RESET}
-            else :
-                fail+=1
+        else :
+            fail+=1
         
     except geoip2.errors.AddressNotFoundError:
         print(f"{Colors.RED}[ERROR]{Colors.WHITE} No information found for the IP address {ip_address}.")
@@ -291,7 +305,8 @@ def from_zip_file(file_path):
         
 
 def main():
-    global verbose, max_workers, timeout, enable_tls
+    global verbose, max_workers, timeout, enable_tls, no_test
+    global country_names, country_continent_names
     parser = argparse.ArgumentParser(description="Read text files from a zip archive.")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-zip', action='store_true', help="Path to the zip file")
@@ -300,6 +315,7 @@ def main():
     parser.add_argument('-dw', action='store_true', help="Download zip file")
     parser.add_argument('-fn', action='store', help="File name")
     parser.add_argument('-notls', action='store_false', help="Disable Tls")
+    parser.add_argument('-notest', action='store_true', help="Sort ip by country only")
     parser.add_argument('-t',type=int, action='store',default=4, help="Timeout")
     parser.add_argument('-th',type=int, action='store',default=10, help="Max workers")
     parser.add_argument('-v', action='store_true', help="Verbose")
@@ -310,6 +326,8 @@ def main():
     max_workers = args.th
     timeout = args.t
     enable_tls = args.notls
+    no_test = args.notest
+
     if args.zip:
         file_path = Path(__file__).with_name('txt.zip')
         if args.dw :#or not os.path.exists(file_path)
@@ -335,8 +353,11 @@ def main():
         port = splited[1]
         geoip_country(ipaddress, port)
     
-
-    if country_names:
+    country_names = ['NV' if country is None else country for country in country_names]
+    country_continent_names = ['NV' if continent is None else continent for continent in country_continent_names]
+    
+    if country_names :
+        print(country_names, len(country_names))
         country_counts = {}
         for country in country_names:
             if country in country_counts:

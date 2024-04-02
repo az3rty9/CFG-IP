@@ -1,6 +1,6 @@
 # CFG-IP 
 
-CFG-IP is a Python script designed to test provided CF’s anti-generation IP or automatically download a daily-updated anti-CF IP list from https://zip.baipiao.eu.org. The script retrieves the ASN (Autonomous System Number) and geographical information for each IP using the GeoIP2 library. Then organizes the results into a folder structure based on the date and time of the scan, with each IP's information stored in a separate text file named after its country.
+CFG-IP is a Python script designed to Sorts provided CF’s anti-generation IP or automatically download a daily-updated anti-CF IP list from https://zip.baipiao.eu.org and optionally performing tests. The script retrieves the ASN (Autonomous System Number) and geographical information for each IP using the GeoIP2 library. Then organizes the results into a folder structure based on the date and time of the scan, with each IP's information stored in a separate text file named after its country.
 
 ## Requirements
 

@@ -25,6 +25,8 @@ cd CFG-IP
 ### Run the script:
 The script supports multiple argument combinations:
 
+`-notest`: Sorts IP addresses by country without performing any tests.
+
 - To scan a single IP address, use the following command:
 
 ```

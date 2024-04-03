@@ -76,7 +76,7 @@ def banner():
     space = "   "#.ljust(int(max_banner_lenght / 4 ), ' ') 
     print (space + "•Author  : " , "! AZERTY9 !" )
     print (space + "•Github  : " , "https://github.com/az3rty9" )
-    print (space + "Telegram : " , "https://t.me/N3wB0rn9" ) 
+    print (space + "Telegram : " , "https://t.me/az3rty9" ) 
     print (space + "•Version : " , "1.0" )
     
     print("".ljust(max_banner_lenght, '─'))
